@@ -1,0 +1,77 @@
+.estiloprinc {
+  text-align: center;
+  text-decoration-color: rgb(5, 122, 232);
+}
+
+.inicioS {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  flex-direction: column;
+  color: rgb(10, 235, 183);
+}
+
+.dashboard-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e3f2fd;
+  font-family: Arial, sans-serif;
+}
+
+.card {
+  background: #ffffff;
+  padding: 25px;
+  width: 350px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.card h2 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  margin: 8px 0;
+}
+
+.logout-btn {
+  margin-top: 18px;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  background-color: #1976d2;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.logout-btn:hover {
+  background-color: #0d47a1;
+}
+
+.estil-error {
+  color: red;
+  background-color: #ffe6e6;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.btn-home {
+  margin-top: 18px;
+  padding: 10px;
+  width: 30%;
+  border: none;
+  background-color: #1976d2;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
