@@ -4,7 +4,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import "./Agendas.css";
-//import api from './axios.js';
+import api from './axios.js';
 import { useNavigate } from "react-router-dom";
 
 export default function Agendas({
