@@ -5,7 +5,7 @@
   background-color: #2c3e50;
   color: white;
   position: relative;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .btnmenu {
@@ -19,22 +19,15 @@
   gap: 4px;
 }
 
-.btnmenu span {
-  width: 25px;
-  height: 3px;
-  background-color: white;
-  transition: 0.3s;
-}
-
 /* Sidebar */
 .sidebar {
   position: fixed;
   top: 0;
-  left: -300px;
-  width: 300px;
+  left: -400px;
+  width: 400px;
   height: 100vh;
   background-color: white;
-  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   transition: left 0.3s ease;
   z-index: 1000;
 }
@@ -64,6 +57,11 @@
   padding: 1rem;
 }
 
+/* Espaciado entre objetos verticalmente */
+.btnsD {
+  padding: 10px;
+}
+
 .user-info {
   padding: 1rem;
   background-color: #02323e;
@@ -78,14 +76,15 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
 
 .btn-home {
   margin-top: 18px;
+  margin: 5px;
+  margin-bottom: 5%;
   padding: 10px;
-  width: 30%;
   border: none;
   background-color: #d27f19;
   color: #ffffff;
@@ -139,7 +138,7 @@
   border-radius: 10px;
   padding: 1.5rem;
   margin-bottom: 1rem;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border-left: 4px solid #bdc3c7;
 }
 
@@ -239,7 +238,7 @@
   padding: 3rem;
   background: white;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .no-appointments h3 {
@@ -252,13 +251,13 @@
   margin-bottom: 1rem;
 }
 
-.summary-item {
+.summaryitem {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 0.5rem;
   padding: 0.5rem;
-  background: #052545;
+  background-color: #052545;
   border-radius: 5px;
 }
 
@@ -280,4 +279,58 @@
 
 .badge.confirmed {
   background-color: #27ae60;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.btn-pay {
+  background: #28a745;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  width: 320px;
+  text-align: center;
+}
+
+.modal-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-cancel{
+  background: #e4110a;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 10px;
+
 }
