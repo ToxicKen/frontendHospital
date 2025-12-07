@@ -24,7 +24,8 @@ export default function Register({ addRegister }) {
 
     const [error, setError] = useState("");
     const [alergiaInput, setAlergiaInput] = useState("");
-    const [padecimientoInput, setPadecimientoInput] = useState({ id: "", descripcion: "" });
+    const [padecimientoInput, setPadecimientoInput] = useState({ id: "" ,
+    nombre: "", descripcion: "" });
     const [telefonoInput, setTelefonoInput] = useState("");
 
     const handleChange = (e) => {
@@ -118,219 +119,348 @@ export default function Register({ addRegister }) {
         }
     };
 
-    return (
-        <div className="register-container">
-            <div className="register-card">
-                <h2>Registrar Nuevo Paciente</h2>
-                {error && <div className="error-message">{error}</div>}
+return (
+    <div className="register-container">
+      <div className="register-card">
+        <h2>Registrar Nuevo Paciente</h2>
+        {error && <div className="error-message">{error}</div>}
 
-                <form onSubmit={handleSubmit} className="register-form">
-                    <div className="form-section">
-                        <h3>Información Personal</h3>
-                        <div className="form-row">
-                            <input
-                                name="nombre"
-                                placeholder="Nombre *"
-                                value={formData.nombre}
-                                onChange={handleChange}
-                                required
-                            />
-                            <input
-                                name="apellidoP"
-                                placeholder="Apellido Paterno *"
-                                value={formData.apellidoP}
-                                onChange={handleChange}
-                                required
-                            />
-                            <input
-                                name="apellidoM"
-                                placeholder="Apellido Materno"
-                                value={formData.apellidoM}
-                                onChange={handleChange}
-                            />
-                        </div>
-
-                        <div className="form-row">
-                            <input
-                                name="curp"
-                                placeholder="CURP *"
-                                value={formData.curp}
-                                onChange={handleChange}
-                                required
-                            />
-                            <input
-                                name="correoElectronico"
-                                placeholder="Correo Electrónico *"
-                                type="email"
-                                value={formData.correoElectronico}
-                                onChange={handleChange}
-                                required
-                            />
-                            <input
-                                name="contrasenia"
-                                placeholder="Contraseña *"
-                                type="password"
-                                value={formData.contrasenia}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                    </div>
-
-                    <div className="form-section">
-                        <h3>Dirección</h3>
-                        <div className="form-row">
-                            <input
-                                name="calle"
-                                placeholder="Calle"
-                                value={formData.calle}
-                                onChange={handleChange}
-                            />
-                            <input
-                                name="numero"
-                                placeholder="Número"
-                                value={formData.numero}
-                                onChange={handleChange}
-                            />
-                            <input
-                                name="colonia"
-                                placeholder="Colonia"
-                                value={formData.colonia}
-                                onChange={handleChange}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="form-section">
-                        <h3>Información Médica</h3>
-                        <div className="form-row">
-                            <input
-                                name="peso"
-                                placeholder="Peso (kg)"
-                                type="number"
-                                step="0.1"
-                                value={formData.peso}
-                                onChange={handleChange}
-                            />
-                            <input
-                                name="estatura"
-                                placeholder="Estatura (cm)"
-                                type="number"
-                                step="0.1"
-                                value={formData.estatura}
-                                onChange={handleChange}
-                            />
-                            <input
-                                name="tipoSangre"
-                                placeholder="Tipo de Sangre"
-                                value={formData.tipoSangre}
-                                onChange={handleChange}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="form-section">
-                        <h3>Teléfonos</h3>
-                        <div className="array-group">
-                            <div className="input-row">
-                                <input
-                                    type="tel"
-                                    placeholder="Número de teléfono"
-                                    value={telefonoInput}
-                                    onChange={(e) => setTelefonoInput(e.target.value)}
-                                />
-                                <button type="button" onClick={handleAddTelefono} className="btn-add">
-                                    Agregar
-                                </button>
-                            </div>
-                            <div className="items-list">
-                                {formData.telefonos.map((telefono, index) => (
-                                    <div key={index} className="item-tag">
-                                        <span>{telefono}</span>
-                                        <button
-                                            type="button"
-                                            onClick={() => handleRemoveTelefono(index)}
-                                            className="btn-remove"
-                                        >
-                                            ×
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="form-section">
-                        <h3>Alergias</h3>
-                        <div className="array-group">
-                            <div className="input-row">
-                                <input
-                                    type="number"
-                                    placeholder="ID Alergia"
-                                    value={alergiaInput}
-                                    onChange={(e) => setAlergiaInput(e.target.value)}
-                                />
-                                <button type="button" onClick={handleAddAlergia} className="btn-add">
-                                    Agregar
-                                </button>
-                            </div>
-                            <div className="items-list">
-                                {formData.alergias.map((alergia, index) => (
-                                    <div key={index} className="item-tag">
-                                        <span>ID: {alergia}</span>
-                                        <button
-                                            type="button"
-                                            onClick={() => handleRemoveAlergia(index)}
-                                            className="btn-remove"
-                                        >
-                                            ×
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="form-section">
-                        <h3>Padecimientos</h3>
-                        <div className="array-group">
-                            <div className="input-double">
-                                <input
-                                    type="number"
-                                    placeholder="ID Padecimiento"
-                                    value={padecimientoInput.id}
-                                    onChange={(e) => setPadecimientoInput(prev => ({ ...prev, id: e.target.value }))}
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="Descripción"
-                                    value={padecimientoInput.descripcion}
-                                    onChange={(e) => setPadecimientoInput(prev => ({ ...prev, descripcion: e.target.value }))}
-                                />
-                                <button type="button" onClick={handleAddPadecimiento} className="btn-add">
-                                    Agregar
-                                </button>
-                            </div>
-                            <div className="items-list">
-                                {formData.padecimientos.map((padecimiento, index) => (
-                                    <div key={index} className="item-tag">
-                                        <span>ID {padecimiento.padecimientoId}: {padecimiento.descripcion}</span>
-                                        <button
-                                            type="button"
-                                            onClick={() => handleRemovePadecimiento(index)}
-                                            className="btn-remove"
-                                        >
-                                            ×
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="submit" className="btn-submit">Registrar Paciente</button>
-                </form>
+        <form onSubmit={handleSubmit} className="register-form">
+          <div className="form-section">
+            <h3>Información Personal</h3>
+            <div className="form-row">
+              <input
+                name="nombre"
+                placeholder="Nombre *"
+                value={formData.nombre}
+                onChange={handleChange}
+                required
+              />
+              <input
+                name="apellidoP"
+                placeholder="Apellido Paterno *"
+                value={formData.apellidoP}
+                onChange={handleChange}
+                required
+              />
+              <input
+                name="apellidoM"
+                placeholder="Apellido Materno"
+                value={formData.apellidoM}
+                onChange={handleChange}
+              />
             </div>
-        </div>
-    );
+
+            <div className="form-row">
+              <input
+                name="curp"
+                placeholder="CURP *"
+                value={formData.curp}
+                onChange={handleChange}
+                required
+              />
+              <input
+                name="correoElectronico"
+                placeholder="Correo Electrónico *"
+                type="email"
+                value={formData.correoElectronico}
+                onChange={handleChange}
+                required
+              />
+              <input
+                name="contrasenia"
+                placeholder="Contraseña *"
+                type="password"
+                value={formData.contrasenia}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="form-section">
+            <h3>Dirección</h3>
+            <div className="form-row">
+              <input
+                name="calle"
+                placeholder="Calle"
+                value={formData.calle}
+                onChange={handleChange}
+              />
+              <input
+                name="numero"
+                placeholder="Número"
+                value={formData.numero}
+                onChange={handleChange}
+              />
+              <input
+                name="colonia"
+                placeholder="Colonia"
+                value={formData.colonia}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <div className="form-section">
+            <h3>Información Médica</h3>
+            <div className="form-row">
+              <input
+                name="peso"
+                placeholder="Peso (kg)"
+                type="number"
+                step="0.1"
+                value={formData.peso}
+                onChange={handleChange}
+              />
+              <input
+                name="estatura"
+                placeholder="Estatura (cm)"
+                type="number"
+                step="0.1"
+                value={formData.estatura}
+                onChange={handleChange}
+              />
+              <input
+                name="tipoSangre"
+                placeholder="Tipo de Sangre"
+                value={formData.tipoSangre}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <div className="form-section">
+            <h3>Teléfonos</h3>
+            <div className="array-group">
+              <div className="input-row">
+                <input
+                  type="tel"
+                  placeholder="Número de teléfono"
+                  value={telefonoInput}
+                  onChange={(e) => setTelefonoInput(e.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={handleAddTelefono}
+                  className="btn-add"
+                >
+                  Agregar
+                </button>
+              </div>
+              <div className="items-list">
+                {formData.telefonos.map((telefono, index) => (
+                  <div key={index} className="item-tag">
+                    <span>{telefono}</span>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveTelefono(index)}
+                      className="btn-remove"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="form-section">
+            <h3>Alergias</h3>
+            <select
+              className="select-full"
+              value={alergiaInput.id}
+              onChange={(e) =>
+                setAlergiaInput({
+                  id: Number(e.target.value),
+                  nombre: "",
+                })
+              }
+            >
+              <option value={0}>Ninguna</option>
+              {alergiasSistema.map((a) => (
+                <option key={a.id} value={a.id}>
+                  {a.nombre}
+                </option>
+              ))}
+              <option value={-1}>Otra...</option>
+            </select>
+
+            {alergiaInput.id === -1 && (
+              <input
+                className="input-full"
+                placeholder="Nueva alergia"
+                value={alergiaInput.nombre}
+                onChange={(e) =>
+                  setAlergiaInput((prev) => ({
+                    ...prev,
+                    nombre: e.target.value,
+                  }))
+                }
+              />
+            )}
+
+            <button
+              type="button"
+              className="btn-add"
+              onClick={() => {
+                if (alergiaInput.id > 0) {
+                  if (!formData.alergias.includes(alergiaInput.id)) {
+                    setFormData((prev) => ({
+                      ...prev,
+                      alergias: [...prev.alergias, alergiaInput.id],
+                    }));
+                  }
+                } else if (alergiaInput.id === -1 && alergiaInput.nombre) {
+                  setFormData((prev) => ({
+                    ...prev,
+                    nuevasAlergias: [
+                      ...prev.nuevasAlergias,
+                      alergiaInput.nombre,
+                    ],
+                  }));
+                }
+
+                setAlergiaInput({ id: 0, nombre: "" });
+              }}
+            >
+              Agregar
+            </button>
+
+            <div className="items-list">
+              {formData.alergias.map((id, i) => {
+                const alergia = alergiasSistema.find((a) => a.id === id);
+
+                return (
+                  <div key={i} className="item-tag">
+                    {alergia ? alergia.nombre : `ID ${id}`}
+                    <button
+                      type="button"
+                      className="btn-remove"
+                      onClick={() =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          alergias: prev.alergias.filter((_, idx) => idx !== i),
+                        }))
+                      }
+                    >
+                      ×
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="form-section">
+            <h3>Padecimientos</h3>
+
+            <select
+              className="select-full"
+              value={padecimientoInput.id}
+              onChange={(e) =>
+                setPadecimientoInput({
+                  id: Number(e.target.value),
+                  nombre: "",
+                  descripcion: "",
+                })
+              }
+            >
+              <option value={0}>Ninguno</option>
+              {padecimientosSistema.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.nombre}
+                </option>
+              ))}
+              <option value={-1}>Otro...</option>
+            </select>
+
+            {padecimientoInput.id === -1 && (
+              <input
+                className="input-full"
+                placeholder="Nombre del padecimiento"
+                value={padecimientoInput.nombre}
+                onChange={(e) =>
+                  setPadecimientoInput((prev) => ({
+                    ...prev,
+                    nombre: e.target.value,
+                  }))
+                }
+              />
+            )}
+
+            {padecimientoInput.id !== 0 && (<input
+              className="input-full"
+              placeholder="Descripción"
+              value={padecimientoInput.descripcion}
+              onChange={(e) =>
+                setPadecimientoInput((prev) => ({
+                  ...prev,
+                  descripcion: e.target.value,
+                }))
+              }
+            />)}
+
+            <button
+              type="button"
+              className="btn-add"
+              onClick={() => {
+                if (!padecimientoInput.descripcion) {
+                  alert("La descripción es obligatoria");
+                  return;
+                }
+
+                const nuevo = {
+                  id: padecimientoInput.id > 0 ? padecimientoInput.id : null,
+                  nombre:
+                    padecimientoInput.id === -1
+                      ? padecimientoInput.nombre
+                      : null,
+                  descripcion: padecimientoInput.descripcion,
+                };
+
+                setFormData((prev) => ({
+                  ...prev,
+                  padecimientos: [...prev.padecimientos, nuevo],
+                }));
+
+                setPadecimientoInput({ id: 0, nombre: "", descripcion: "" });
+              }}
+            >
+              Agregar Padecimiento
+            </button>
+
+            <div className="items-list">
+              {formData.padecimientos.map((p, i) => (
+                <div key={i} className="item-tag">
+                  {p.id
+                    ? padecimientosSistema.find((x) => x.id === p.id)?.nombre
+                    : p.nombre}{" "}
+                  — {p.descripcion}
+                  <button
+                    type="button"
+                    className="btn-remove"
+                    onClick={() =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        padecimientos: prev.padecimientos.filter(
+                          (_, idx) => idx !== i
+                        ),
+                      }))
+                    }
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <button type="submit" className="btn-submit">
+            Registrar Paciente
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 }
