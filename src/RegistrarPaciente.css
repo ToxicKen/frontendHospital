@@ -114,10 +114,9 @@ input:focus {
     background-color: #64748b;
 }
 
-/* Checkboxes para Alergias/Padecimientos */
 .checkbox-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
@@ -126,13 +125,26 @@ input:focus {
     align-items: center;
     gap: 8px;
     background: white;
-    padding: 8px;
+    padding: 8px 12px;
     border: 1px solid #e2e8f0;
     border-radius: 4px;
     cursor: pointer;
+    white-space: nowrap;
 }
 
-.checkbox-item input {
-    width: auto;
+.checkbox-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
     margin: 0;
+    flex-shrink: 0;
+}
+
+.checkbox-item label {
+    cursor: pointer;
+    margin: 0;
+    user-select: none;
+}
+
+.checkbox-item input[type="checkbox"] {
+    cursor: pointer;
 }

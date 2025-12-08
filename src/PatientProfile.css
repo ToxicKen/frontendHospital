@@ -1,69 +1,287 @@
 .profile-container {
-  max-width: 850px;
-  margin: 40px auto;
-  padding: 24px;
-  font-family: "Segoe UI", Arial, sans-serif;
+    max-width: 850px;
+    margin: 40px auto;
+    padding: 24px;
+    font-family: "Segoe UI", Arial, sans-serif;
 }
 
-.profile-card {
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 28px;
-  line-height: 1.8;
-  box-shadow: 0 4px 14px rgba(0,0,0,.12);
-  border-left: 6px solid #1976d2;
-  transition: transform 0.2s ease;
+/* ===== ESTADOS DE CARGA Y ERROR ===== */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
 }
 
-.profile-card:hover {
-  transform: translateY(-2px);
+.loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #1976d2;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
 }
 
-/* ===== BOTÓN PRINCIPAL ===== */
-.btn-primary {
-  margin-top: 24px;
-  padding: 8px 15px;
-  background: linear-gradient(135deg, #1976d2, #0d47a1);
-  color: #ffffff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: 500;
-  box-shadow: 0 3px 8px rgba(0,0,0,.2);
-  transition: all 0.2s ease;
-  margin-left: 15px;
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
-.btn-primary:hover {
-  background: linear-gradient(135deg, #1565c0, #0b3c91);
-  transform: scale(1.03);
+.error-container {
+    background: #fff5f5;
+    border: 2px dashed #ff6b6b;
+    border-radius: 14px;
+    padding: 40px 25px;
+    text-align: center;
+    color: #d11414;
+    box-shadow: 0 3px 10px rgba(0,0,0,.08);
 }
 
-.btn-primary:active {
-  transform: scale(0.97);
-}
-
-/* ===== ESTADO SIN DATOS DE PACIENTE ===== */
 .empty-state {
-  background: #f8fbff;
-  border: 2px dashed #90caf9;
-  border-radius: 14px;
-  padding: 50px 25px;
-  text-align: center;
-  color: #444;
-  box-shadow: 0 3px 10px rgba(0,0,0,.08);
+    background: #f8fbff;
+    border: 2px dashed #90caf9;
+    border-radius: 14px;
+    padding: 50px 25px;
+    text-align: center;
+    color: #444;
+    box-shadow: 0 3px 10px rgba(0,0,0,.08);
 }
 
 .title-Error {
-  font-size: 22px;
-  font-weight: bold;
-  color: #d11414;
-  margin-bottom: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #d11414;
+    margin-bottom: 10px;
 }
 
 .empty-text {
-  font-size: 15px;
-  color: #666;
-  margin-bottom: 20px;
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* ===== TARJETA DE PERFIL ===== */
+.profile-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 28px;
+    line-height: 1.8;
+    box-shadow: 0 4px 14px rgba(0,0,0,.12);
+    border-left: 6px solid #1976d2;
+    transition: transform 0.2s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-2px);
+}
+
+/* ===== SECCIONES DE INFORMACIÓN ===== */
+.info-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.info-section:last-child {
+    border-bottom: none;
+}
+
+.info-section h3 {
+    color: #1976d2;
+    margin-bottom: 15px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-section h3::before {
+    font-size: 20px;
+}
+
+.info-section p {
+    margin: 8px 0;
+    color: #333;
+    font-size: 15px;
+}
+
+/* ===== INFORMACIÓN MÉDICA EN GRID ===== */
+.medical-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.medical-info-item {
+    background: #f8fbff;
+    padding: 12px 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e3f2fd;
+}
+
+.medical-label {
+    font-weight: 600;
+    color: #1976d2;
+}
+
+.medical-value {
+    color: #0d47a1;
+    font-weight: 500;
+}
+
+/* ===== LISTAS DE INFORMACIÓN ===== */
+.info-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.info-list-item {
+    padding: 8px 12px;
+    margin: 5px 0;
+    background: #f8fbff;
+    border-left: 4px solid #1976d2;
+    border-radius: 6px;
+    color: #333;
+}
+
+.no-data {
+    color: #666;
+    font-style: italic;
+    padding: 10px;
+    background: #f8fbff;
+    border-radius: 6px;
+    text-align: center;
+}
+
+/* ===== BOTONES ===== */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.btn-primary {
+    margin-top: 0;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #1976d2, #0d47a1);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    box-shadow: 0 3px 8px rgba(0,0,0,.2);
+    transition: all 0.2s ease;
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #1565c0, #0b3c91);
+    transform: scale(1.02);
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+.btn-primary:disabled {
+    background: #b0bec5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-secondary {
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #607d8b, #455a64);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    box-shadow: 0 3px 8px rgba(0,0,0,.2);
+    transition: all 0.2s ease;
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #546e7a, #37474f);
+    transform: scale(1.02);
+}
+
+.btn-refresh {
+    padding: 8px 16px;
+    background: #e3f2fd;
+    color: #1976d2;
+    border: 1px solid #90caf9;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    margin-top: 20px;
+}
+
+.btn-refresh:hover {
+    background: #bbdefb;
+    transform: scale(1.05);
+}
+
+/* ===== SECCIÓN DE ACTUALIZACIÓN ===== */
+.update-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px dashed #e0e0e0;
+    text-align: center;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .profile-container {
+        margin: 20px auto;
+        padding: 16px;
+    }
+
+    .profile-card {
+        padding: 20px;
+    }
+
+    .medical-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .action-buttons button {
+        width: 100%;
+    }
+
+    .info-section h3 {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-container {
+        padding: 12px;
+    }
+
+    .profile-card {
+        padding: 16px;
+    }
+
+    .btn-primary, .btn-secondary {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
 }

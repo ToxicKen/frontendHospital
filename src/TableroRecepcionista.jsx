@@ -20,7 +20,7 @@ const TableroRecepcionista = () => {
 
     return (
         <div className="dashboard-layout">
-            
+
             {/* Barra Superior */}
             <nav className="navbar">
                 <div className="nav-brand">
@@ -32,12 +32,12 @@ const TableroRecepcionista = () => {
             </nav>
 
             <div className="dashboard-content">
-                
+
                 <h2 className="section-title">Gestión de Personal</h2>
                 <div className="action-grid">
-                    
+
                     <div className="action-card border-personal">
-                    
+
                         <h3>Registrar Doctor</h3>
                         <p>Dar de alta un nuevo médico con especialidad y consultorio.</p>
                         <button className="btn-card" onClick={() => navigate('/registro-doctor')}>
@@ -46,7 +46,7 @@ const TableroRecepcionista = () => {
                     </div>
 
                     <div className="action-card border-personal">
-                      
+
                         <h3>Consultar Doctores</h3>
                         <p>Ver lista de médicos activos y sus horarios.</p>
                         <button className="btn-card" onClick={() => navigate('/lista-doctores')}>
@@ -55,7 +55,7 @@ const TableroRecepcionista = () => {
                     </div>
 
                     <div className="action-card border-personal">
-                      
+
                         <h3>Registrar Recepcionista</h3>
                         <p>Crear nueva cuenta administrativa para colegas.</p>
                         <button className="btn-card" onClick={() => navigate('/registro-recepcionista')}>
@@ -63,9 +63,9 @@ const TableroRecepcionista = () => {
                         </button>
                     </div>
 
-            
+
                     <div className="action-card border-personal">
-                        
+
                         <h3>Consultar Personal</h3>
                         <p>Ver recepcionistas</p>
                         <button className="btn-card" onClick={() => navigate('/lista-recepcionistas')}>
@@ -75,13 +75,13 @@ const TableroRecepcionista = () => {
 
                 </div>
 
-    
+
                 <h2 className="section-title">Atención al Paciente</h2>
                 <div className="action-grid">
 
-    
+
                     <div className="action-card border-paciente">
-                       
+
                         <h3>Registrar Paciente</h3>
                         <p>Dar de alta nuevo paciente (Datos personales y contacto).</p>
                         <button className="btn-card" onClick={() => navigate('/registro-paciente')}>
@@ -91,7 +91,7 @@ const TableroRecepcionista = () => {
 
                     {/* Consultar Pacientes */}
                     <div className="action-card border-paciente">
-                        
+
                         <h3>Consultar Pacientes</h3>
                         <p>Buscar datos de contacto (Sin acceso a historial médico ni recetas).</p>
                         <button className="btn-card" onClick={() => navigate('/lista-pacientes')}>
@@ -100,7 +100,7 @@ const TableroRecepcionista = () => {
                     </div>
 
                      <div className="action-card border-paciente">
-                      
+
                         <h3>Gestión de Citas</h3>
                         <p>Agendar nuevas citas o cancelar citas existentes.</p>
                         <button className="btn-card" onClick={() => navigate('/agendas')}>
@@ -110,13 +110,13 @@ const TableroRecepcionista = () => {
 
                 </div>
 
-            
+
                 <h2 className="section-title">Caja y Farmacia</h2>
                 <div className="action-grid">
 
-        
+
                     <div className="action-card border-dinero">
-                        
+
                         <h3>Caja y Farmacia</h3>
                         <p>Venta de medicamentos y servicios</p>
                         <button className="btn-card" onClick={() => navigate('/caja')}>
@@ -130,16 +130,16 @@ const TableroRecepcionista = () => {
                 <div className="action-grid">
 
                     <div className="action-card border-sistema">
-                        
+
                         <h3>Bitácora de Acceso</h3>
                         <p></p>
                         <button className="btn-card" onClick={() => navigate('/bitacora-accesos')}>
                             Ver Logs
                         </button>
                     </div>
- 
+
                     <div className="action-card border-sistema">
-                        
+
                         <h3>Bitácora de Movimientos</h3>
                         <p>Historial de cambios realizados</p>
                         <button className="btn-card" onClick={() => navigate('/bitacora-movimientos')}>
