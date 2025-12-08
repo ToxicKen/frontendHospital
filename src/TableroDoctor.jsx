@@ -1,31 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../App.css';
+import './App.css';
+
 
 const MOCK_CITAS_DOCTOR = [
     {
         idCita: 101,
-        fechaHora: "2025-12-08T09:00:00",
+        idPaciente: 50,
+        fechaHora: new Date().toISOString(), // Pone fecha de HOY para que te deje hacer la receta
         paciente: "Juan Pérez López",
-        edad: 30,
-        estatus: "PAGADA_PENDIENTE_POR_ATENDER",
-        motivo: "Dolor abdominal persistente"
+        estatus: "PAGADA_PENDIENTE_POR_ATENDER"
     },
     {
         idCita: 102,
-        fechaHora: "2025-12-08T10:30:00",
+        idPaciente: 88,
+        fechaHora: "2025-12-25T10:30:00", // Fecha futura (no dejará hacer receta)
         paciente: "Ana García",
-        edad: 25,
-        estatus: "PAGADA_PENDIENTE_POR_ATENDER",
-        motivo: "Revisión general"
+        estatus: "PAGADA_PENDIENTE_POR_ATENDER"
     },
     {
         idCita: 103,
-        fechaHora: "2025-12-07T14:00:00",
+        idPaciente: 12,
+        fechaHora: "2025-11-07T14:00:00",
         paciente: "Carlos Ruiz",
-        edad: 45,
-        estatus: "ATENDIDA",
-        motivo: "Hipertensión"
+        estatus: "ATENDIDA"
     }
 ];
 
@@ -46,6 +44,11 @@ export default function TableroDoctor() {
         navigate('/');
     };
 
+    // 🛑 FUNCIÓN CLAVE: Navegar a la Receta enviando los datos de la cita
+    const atenderPaciente = (cita) => {
+        navigate('/consulta-medica', { state: { cita } });
+    };
+
     const citasFiltradas = citas.filter(c => {
         if (filtro === 'PENDIENTE') {
             return c.estatus.includes('PENDIENTE_POR_ATENDER');
@@ -53,10 +56,6 @@ export default function TableroDoctor() {
             return c.estatus === 'ATENDIDA' || c.estatus === 'NO_ACUDIO';
         }
     });
-
-    const iniciarConsulta = (cita) => {
-        navigate('/consulta-medica', { state: { cita } });
-    };
 
     return (
         <div className="dashboard-layout">
@@ -79,7 +78,7 @@ export default function TableroDoctor() {
                             cursor: 'pointer'
                         }}
                     >
-                        Citas Pendientes
+                        Pendientes por Atender
                     </button>
                     <button
                         onClick={() => setFiltro('HISTORIAL')}
@@ -91,35 +90,40 @@ export default function TableroDoctor() {
                             cursor: 'pointer'
                         }}
                     >
-                        Historial de Atenciones
+                        Atendidas / Historial
                     </button>
                 </div>
 
-                <div className="citas-grid" style={{ display: 'grid', gap: '20px' }}>
+                <div className="citas-grid" style={{ display: 'grid', gap: '15px' }}>
                     {citasFiltradas.length > 0 ? (
                         citasFiltradas.map(cita => (
-                            <div key={cita.idCita} className="card appointment-card" style={{ borderLeft: '5px solid #2a9d8f' }}>
+                            <div key={cita.idCita} className="card appointment-card" style={{ borderLeft: '5px solid #2a9d8f', padding: '15px' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    
                                     <div>
-                                        <h3 style={{ margin: '0 0 5px 0' }}>{cita.paciente}</h3>
-                                        <p style={{ color: '#666', fontSize: '0.9rem', margin: 0 }}>
-                                            Fecha: {new Date(cita.fechaHora).toLocaleString()}
+                                        <h4 style={{ margin: '0 0 5px 0', color: '#333' }}>
+                                            {cita.paciente} <span style={{ color: '#666', fontWeight: 'normal' }}>(ID: {cita.idPaciente})</span>
+                                        </h4>
+                                        <p style={{ margin: 0, color: '#555' }}>
+                                            <strong>Fecha:</strong> {new Date(cita.fechaHora).toLocaleString()}
                                         </p>
-                                        <p><strong>Motivo:</strong> {cita.motivo}</p>
+                                        <p style={{ margin: 0, fontSize: '0.8rem', color: '#999' }}>
+                                            Folio: {cita.idCita}
+                                        </p>
                                     </div>
 
                                     {filtro === 'PENDIENTE' && (
                                         <button
                                             className="btn-primary"
                                             style={{ backgroundColor: '#2a9d8f' }}
-                                            onClick={() => iniciarConsulta(cita)}
+                                            onClick={() => atenderPaciente(cita)}
                                         >
-                                            Atender Paciente
+                                            Atender
                                         </button>
                                     )}
 
                                     {filtro === 'HISTORIAL' && (
-                                        <span style={{ background: '#ccc', padding: '5px 10px', borderRadius: '4px', fontSize: '0.8rem' }}>
+                                        <span style={{ background: '#e0e0e0', padding: '5px 10px', borderRadius: '4px', fontSize: '0.8rem' }}>
                                             {cita.estatus}
                                         </span>
                                     )}
@@ -128,7 +132,7 @@ export default function TableroDoctor() {
                         ))
                     ) : (
                         <div style={{ textAlign: 'center', padding: '40px', color: '#888' }}>
-                            <h3>No hay citas en esta sección</h3>
+                            <p>No hay citas en esta lista.</p>
                         </div>
                     )}
                 </div>
