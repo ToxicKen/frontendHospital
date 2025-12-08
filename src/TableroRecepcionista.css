@@ -1,0 +1,141 @@
+/* src/components/TableroRecepcionista.css */
+
+.dashboard-layout {
+  min-height: 100vh;
+  background-color: #f4f6f9; /* Fondo gris muy suave para resaltar las tarjetas */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- BARRA SUPERIOR (NAVBAR) --- */
+.navbar {
+  background: radial-gradient(circle, #0288d1 0%, #01579b 100%); /* Mismo azul del logo */
+  color: white;
+  padding: 0 40px;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-brand {
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-logout {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: white;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+}
+
+.btn-logout:hover {
+  background-color: #c62828; /* Rojo al pasar el mouse para indicar salir */
+  border-color: #c62828;
+}
+
+/* --- CONTENIDO PRINCIPAL --- */
+.dashboard-content {
+  padding: 40px;
+  max-width: 1400px; /* Ancho máximo para pantallas grandes */
+  margin: 0 auto;
+}
+
+.section-title {
+  color: #333;
+  margin-bottom: 25px;
+  font-size: 22px;
+  border-left: 5px solid #43a047; /* Línea verde decorativa */
+  padding-left: 15px;
+}
+
+/* --- GRID (CUADRÍCULA) --- */
+.action-grid {
+  display: grid;
+  /* Esto crea columnas automáticas que no se hacen más chicas de 260px */
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 25px;
+  margin-bottom: 50px;
+}
+
+/* --- TARJETAS (CADA CUADRO) --- */
+.action-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%; /* Para que todas tengan la misma altura */
+  border-top: 5px solid #ccc; /* Color por defecto */
+}
+
+.action-card:hover {
+  transform: translateY(-5px); /* Efecto de flotar al pasar el mouse */
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card-icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.action-card h3 {
+  font-size: 18px;
+  color: #333;
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+.action-card p {
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+/* BOTÓN DENTRO DE LA TARJETA (Estilo verde como el login) */
+.btn-card {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(to bottom, #66bb6a 0%, #43a047 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+
+.btn-card:hover {
+  box-shadow: 0 4px 8px rgba(67, 160, 71, 0.4);
+}
+
+/* --- COLORES ESPECÍFICOS POR GRUPO --- */
+
+/* Pacientes (Verde) */
+.border-paciente { border-top-color: #43a047; }
+
+/* Personal (Azul) */
+.border-personal { border-top-color: #1976d2; }
+
+/* Finanzas/Farmacia (Naranja) */
+.border-dinero { border-top-color: #fb8c00; }
+
+/* Sistema/Bitácoras (Gris Oscuro) */
+.border-sistema { border-top-color: #546e7a; }
