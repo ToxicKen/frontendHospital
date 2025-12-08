@@ -7,109 +7,114 @@ export default function ConsultarDoctores() {
     const navigate = useNavigate();
     const [especialidades, setEspecialidades] = useState([]);
     const [doctores, setDoctores] = useState([]);
-    const [selectedEspecialidadId, setSelectedEspecialidadId] = useState('');
+    const [selectedEspecialidad, setSelectedEspecialidad] = useState('');
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
 
-    
+    // 1. Cargar Especialidades
     useEffect(() => {
-        const cargarEspecialidades = async () => {
-            try {
-                
-                const res = await api.get('/api/cita/especialidades');
-                setEspecialidades(res.data);
-            } catch (err) {
-                setError("Error al cargar especialidades");
-            }
-        };
-        cargarEspecialidades();
+        api.get('/api/especialidades')
+            .then(res => setEspecialidades(res.data))
+            .catch(err => console.error("Error cargando especialidades", err));
     }, []);
 
+    // 2. Cargar Doctores
     useEffect(() => {
-        if (!selectedEspecialidadId) {
+        if (!selectedEspecialidad) {
             setDoctores([]);
             return;
         }
+        setLoading(true);
+        api.get(`/api/especialidades/${selectedEspecialidad}/doctores`)
+            .then(res => setDoctores(res.data))
+            .catch(err => console.error("Error cargando doctores", err))
+            .finally(() => setLoading(false));
+    }, [selectedEspecialidad]);
 
-        const cargarDoctores = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-            
-                const res = await api.get(`/api/cita/especialidades/${selectedEspecialidadId}/doctores`);
-                setDoctores(res.data);
-            } catch (err) {
-                setError(`No hay doctores registrados para esta especialidad.`);
-            } finally {
-                setLoading(false);
+    // 3. Dar de Baja
+    const handleDarDeBaja = async (idDoctor, nombreDoctor) => {
+        if (!window.confirm(`¿Está seguro de dar de baja al Dr. ${nombreDoctor}?`)) return;
+
+        try {
+            await api.delete(`/api/doctor/${idDoctor}`);
+            alert(`El Dr. ha sido dado de baja.`);
+            setDoctores(doctores.filter(d => d.idDoctor !== idDoctor));
+        } catch (err) {
+            if (err.response && err.response.status === 409) {
+                alert("Error: El doctor tiene citas asignadas. No se puede dar de baja.");
+            } else {
+                alert("Error al dar de baja.");
             }
-        };
-        cargarDoctores();
-    }, [selectedEspecialidadId]);
-
-    const handleChangeEspecialidad = (e) => {
-        
-        setSelectedEspecialidadId(e.target.value); 
+        }
     };
 
     return (
-        <div className="dashboard-container" style={{ alignItems: 'flex-start' }}>
-            <div className="registro-container" style={{ maxWidth: '900px', marginTop: '20px', textAlign: 'left' }}>
-                <h2>Consultar Doctores</h2>
-                <hr style={{ marginBottom: '20px' }} />
+        <div className="dashboard-container" style={{ alignItems: 'flex-start', padding: '20px' }}>
+            <div className="card" style={{ maxWidth: '1000px', width: '100%', margin: '0 auto' }}>
+                
+                {/* Título solo arriba */}
+                <h2>Directorio Médico</h2>
+                <hr style={{ marginBottom: '20px' }}/>
 
-                <div className="filter-controls" style={{ marginBottom: '20px' }}>
+                {/* Filtros */}
+                <div style={{ marginBottom: '20px' }}>
                     <label style={{ marginRight: '10px', fontWeight: 'bold' }}>Filtrar por Especialidad:</label>
                     <select
-                        onChange={handleChangeEspecialidad}
-                        value={selectedEspecialidadId}
-                        style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
+                        className="input-field"
+                        onChange={(e) => setSelectedEspecialidad(e.target.value)}
+                        value={selectedEspecialidad}
                     >
-                        <option value="">-- Seleccionar Especialidad --</option>
+                        <option value="">-- Seleccionar --</option>
                         {especialidades.map(esp => (
-                            <option key={esp.idEspecialidad} value={esp.idEspecialidad}>
-                                {esp.nombre}
-                            </option>
+                            <option key={esp.idEspecialidad} value={esp.idEspecialidad}>{esp.nombre}</option>
                         ))}
                     </select>
                 </div>
-                
-                {error && <div className="estil-error">{error}</div>}
-                
-                {loading ? (
-                    <p>Cargando lista de doctores...</p>
-                ) : doctores.length > 0 ? (
-                    <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
+
+                {/* Tabla */}
+                {loading ? <p style={{textAlign:'center'}}>Cargando...</p> : (
+                    <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead>
-                            <tr style={{ backgroundColor: '#f0f0f0' }}>
-                                <th style={{ padding: '10px', border: '1px solid #ccc' }}>ID Doctor</th>
-                                <th style={{ padding: '10px', border: '1px solid #ccc' }}>Nombre Completo</th>
-                                <th style={{ padding: '10px', border: '1px solid #ccc' }}>Especialidad</th>
-                                <th style={{ padding: '10px', border: '1px solid #ccc' }}>Consultorio</th>
+                            <tr style={{ background: '#f0f0f0' }}>
+                                <th style={{ padding: '10px', border: '1px solid #ddd' }}>ID</th>
+                                <th style={{ padding: '10px', border: '1px solid #ddd' }}>Nombre</th>
+                                <th style={{ padding: '10px', border: '1px solid #ddd' }}>Consultorio</th>
+                                <th style={{ padding: '10px', border: '1px solid #ddd', textAlign: 'center' }}>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {doctores.map(doc => (
+                            {doctores.length > 0 ? doctores.map(doc => (
                                 <tr key={doc.idDoctor}>
-                                    <td style={{ padding: '10px', border: '1px solid #ccc' }}>{doc.idDoctor}</td>
-                                    <td style={{ padding: '10px', border: '1px solid #ccc' }}>{doc.nombreCompleto}</td>
-                                    <td style={{ padding: '10px', border: '1px solid #ccc' }}>{doc.especialidad}</td>
-                                    <td style={{ padding: '10px', border: '1px solid #ccc' }}>{doc.consultorio}</td>
+                                    <td style={{ padding: '10px', border: '1px solid #ddd' }}>{doc.idDoctor}</td>
+                                    <td style={{ padding: '10px', border: '1px solid #ddd' }}>{doc.nombreCompleto}</td>
+                                    <td style={{ padding: '10px', border: '1px solid #ddd' }}>{doc.consultorio}</td>
+                                    <td style={{ padding: '10px', border: '1px solid #ddd', textAlign: 'center' }}>
+                                        <button 
+                                            className="btn-cancel" 
+                                            style={{ background: '#d32f2f', color: 'white', padding: '5px 10px', fontSize: '0.8rem' }}
+                                            onClick={() => handleDarDeBaja(doc.idDoctor, doc.nombreCompleto)}
+                                        >
+                                            Dar de Baja
+                                        </button>
+                                    </td>
                                 </tr>
-                            ))}
+                            )) : (
+                                <tr><td colSpan="4" style={{ padding: '20px', textAlign: 'center' }}>Seleccione una especialidad para ver doctores</td></tr>
+                            )}
                         </tbody>
                     </table>
-                ) : (
-                    <p>Selecciona una especialidad para ver la lista de doctores</p>
                 )}
-                
-                <button 
-                    onClick={() => navigate('/tableroRecepcionista')} 
-                    className="btn-cancel" 
-                    style={{ marginTop: '30px' }}
-                >
-                    ← Volver al Tablero
-                </button>
+
+     
+                <div style={{ marginTop: '30px', textAlign: 'left' }}>
+                    <button 
+                        onClick={() => navigate('/tableroRecepcionista')} 
+                        className="btn-cancel"
+                        style={{ padding: '10px 25px' }}
+                    >
+                        ← Volver al Tablero
+                    </button>
+                </div>
+
             </div>
         </div>
     );
